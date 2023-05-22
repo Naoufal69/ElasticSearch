@@ -1,0 +1,36 @@
+## Notes cours
+
+NoSQL
+
+ElasticSearch : Indexation,Normalisation, tokenisation,…
+
+    Analyse de texte
+    Opération CRUD avec l’API REst
+    Index
+    La data visalutaion avec Kibana
+    Installation et configuration
+    Découverte des données et construction des requêtes
+    ETL (Exctract transform Load) 
+    Le rôle et fonctionnement des outils du stack
+    Ce qu’est la data visualisation 
+
+Être capable :
+
+    Mettre en place chacun des outils de la stack
+    Configurer chaque outil
+    Se repérer dans la documentation technique
+    Déployer la stack Elastic
+
+1er diapo :
+
+    Anciennement ELK
+    Elasticsearch
+    Logstach
+    Kibana
+    Beats
+    ETL : Logstash
+    Moteur de recherche : Elastisearch
+    Outil de visualisation : Kibana
+    Collecte de données : Beats
+
+Port par défaut : 9200
