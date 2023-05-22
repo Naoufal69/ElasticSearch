@@ -184,7 +184,3 @@ Type des champs
 - keyword: non analysé, recherche exacte
 - Comparaison avec les types SQL
     - [https://Wwww.elastic.co/guide/en/elasticsearch/reference/current/sql-data-types.html](https://wwww.elastic.co/guide/en/elasticsearch/reference/current/sql-data-types.html)
-
-TP jour 1 : 
-
-docker run --name es-node01 --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -t [docker.elastic.co/elasticsearch/elasticsearch:8.7.1](http://docker.elastic.co/elasticsearch/elasticsearch:8.7.1)
