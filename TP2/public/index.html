@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indexeur</title>
+  </head>
+  <body>
+    <label for="title">Nom du film : </label>
+    <input type="text" name="title" id="title" />
+    <br />
+    <label for="year">Année de sortie : </label>
+    <input type="number" min="1800" name="year" id="year" />
+    <br />
+    <label for="director">Réalisateur : </label>
+    <input type="text" name="director" id="director" />
+    <button onclick="handleSubmit()">Ajouter</button>
+  </body>
+  <script>
+    const handleSubmit = async () => {
+      const title = document.getElementById("title").value;
+      const director = document.getElementById("director").value;
+      const year = document.getElementById("year").value;
+      const data = { title, director, year };
+
+      console.log("Envoi des données en cours...");
+      try {
+        const response = await fetch("/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        const result = await response.text();
+        console.log(result); // Affiche la réponse du serveur
+      } catch (error) {
+        console.error("Erreur lors de l'envoi des données :", error);
+      }
+    };
+  </script>
+</html>
