@@ -24,6 +24,29 @@ app.post("/submit", (req, res) => {
   res.send("Upload done");
 });
 
+app.post("/search", (req, res) => {
+  const { search } = req.body;
+  client
+    .search({
+      index: "titles",
+      body: {
+        query: {
+          multi_match: {
+            query: search,
+            fields: ["title", "director", "year"],
+          },
+        },
+      },
+    })
+    .then(function(resp) {
+        var hits = resp.hits.hits;
+        res.send(hits);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send("Erreur lors de la recherche");
+    });
+});
 
 app.listen(3000, () => {
   console.log("Server running on port 3000");

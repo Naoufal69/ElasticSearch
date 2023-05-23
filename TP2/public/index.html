@@ -4,20 +4,64 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="style.css" rel="stylesheet" />
     <title>Indexeur</title>
   </head>
   <body>
-    <label for="title">Nom du film : </label>
-    <input type="text" name="title" id="title" />
-    <br />
-    <label for="year">Année de sortie : </label>
-    <input type="number" min="1800" name="year" id="year" />
-    <br />
-    <label for="director">Réalisateur : </label>
-    <input type="text" name="director" id="director" />
-    <button onclick="handleSubmit()">Ajouter</button>
+    <div class="main-block">
+      <div class="forms">
+        <h1>MoovieSite</h1>
+        <hr />
+        <h2>Ajouter un film</h2>
+        <label for="title">Nom du film : </label>
+        <input type="text" name="title" id="title" />
+        <br />
+        <label for="year">Année de sortie : </label>
+        <input type="number" min="1800" name="year" id="year" />
+        <br />
+        <label for="director">Réalisateur : </label>
+        <input type="text" name="director" id="director" />
+        <button onclick="handleSubmit()">Ajouter</button>
+
+        <hr />
+        <h2>Recherche</h2>
+        <input type="text" id="search" />
+        <button onclick="handleSearch()">Chercher</button>
+        </div>
+      </div>
+      <div id="listFilms"></div>
+    </div>
   </body>
   <script>
+    const handleSearch = async () => {
+      const search = document.getElementById("search").value;
+      const data = { search };
+
+      console.log("Envoi des données en cours...");
+      try {
+        const response = await fetch("/search", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        document.getElementById("listFilms").innerHTML = "";
+        for (let i = 0; i < result.length; i++) {
+          const film = result[i]._source;
+          const title = film.title;
+          const director = film.director;
+          const year = film.year;
+          var e = document.createElement("div");
+          e.innerHTML = "<p>"+title + " (" + year + ") de " + director +" </p>";
+          document.getElementById("listFilms").appendChild(e);
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'envoi des données :", error);
+      }
+    };
+
     const handleSubmit = async () => {
       const title = document.getElementById("title").value;
       const director = document.getElementById("director").value;
