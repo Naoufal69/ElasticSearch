@@ -11,7 +11,7 @@
     <div class="main-block">
       <div class="forms">
         <h1>MoovieSite</h1>
-        <hr />
+
         <h2>Ajouter un film</h2>
         <label for="title">Nom du film : </label>
         <input type="text" name="title" id="title" />
@@ -22,13 +22,13 @@
         <label for="director">Réalisateur : </label>
         <input type="text" name="director" id="director" />
         <button onclick="handleSubmit()">Ajouter</button>
-
-        <hr />
         <h2>Recherche</h2>
         <input type="text" id="search" />
         <button onclick="handleSearch()">Chercher</button>
-        </div>
       </div>
+    </div>
+    <div id="resultat">
+      <h1>Résultat :</h1>
       <div id="listFilms"></div>
     </div>
   </body>
@@ -54,7 +54,28 @@
           const director = film.director;
           const year = film.year;
           var e = document.createElement("div");
-          e.innerHTML = "<p>"+title + " (" + year + ") de " + director +" </p>";
+
+          var titleElement = document.createElement("p");
+          titleElement.textContent = "Nom du film : " + title;
+          titleElement.style.fontWeight = "500";
+          titleElement.style.fontSize = "20px";
+          titleElement.style.marginBottom = "5px";
+          e.appendChild(titleElement);
+
+          var yearElement = document.createElement("p");
+          yearElement.textContent = "Année de sortie : " + year;
+          yearElement.style.fontWeight = "500";
+          yearElement.style.fontSize = "20px";
+          yearElement.style.marginBottom = "5px";
+          e.appendChild(yearElement);
+
+          var directorElement = document.createElement("p");
+          directorElement.textContent = "Réalisateur : " + director;
+          directorElement.style.fontWeight = "500";
+          directorElement.style.fontSize = "20px";
+          directorElement.style.marginBottom = "30px";
+          e.appendChild(directorElement);
+
           document.getElementById("listFilms").appendChild(e);
         }
       } catch (error) {

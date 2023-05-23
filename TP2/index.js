@@ -33,6 +33,7 @@ app.post("/search", (req, res) => {
         query: {
           multi_match: {
             query: search,
+            type: 'phrase_prefix',
             fields: ["title", "director", "year"],
           },
         },
