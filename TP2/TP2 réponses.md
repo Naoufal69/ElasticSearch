@@ -2,7 +2,7 @@
 
 ## Tenter d’expliquer comment les données indexées sont analysées
 
-- `Indexation des données`: Tout d'abord, les données doivent être indexées dans Elasticsearch. Cela implique de les ajouter à un index spécifique dans Elasticsearch. (Index => BDD)
+- `Indexation des données`: Tout d'abord, les données doivent être indexées dans Elasticsearch. Cela implique de les ajouter à un index spécifique. (Index => BDD)
 
 - `Requêtes de recherche` : Une fois les données indexées, On peut effectuer des requêtes de recherche pour récupérer et analyser les données. (Voir les différentes types de requêtes dans le fichier <code>TP2 notes.md</code>)
 
