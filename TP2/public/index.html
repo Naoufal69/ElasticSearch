@@ -25,14 +25,202 @@
         <h2>Recherche</h2>
         <input type="text" id="search" />
         <button onclick="handleSearch()">Chercher</button>
+        <br />
+        <h2>Modifier un élément</h2>
+        <button id="openModalBtnMod" onclick="handleModalModOpen();">
+          Modifier
+        </button>
+        <br />
+        <h2>Supprimer un élément</h2>
+        <button id="openModalBtnDel" onclick="handleModalDelOpen();">
+          Supprimer
+        </button>
       </div>
     </div>
     <div id="resultat">
       <h1>Résultat :</h1>
       <div id="listFilms"></div>
     </div>
+
+    <div id="modalMod" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="handleModalModClose();">&times;</span>
+        <h2>Modal de modification</h2>
+        <div id="contentModalUpdate"></div>
+      </div>
+    </div>
+
+    <div id="modalDel" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="handleModalDelClose();">&times;</span>
+        <h2>Modal de Suppression</h2>
+        <div id="contentModalDel"></div>
+      </div>
+    </div>
   </body>
   <script>
+    var modalMod = document.getElementById("modalMod");
+    var btnMod = document.getElementById("openModalBtnMod");
+    var spanMod = document.getElementsByClassName("close")[0];
+
+    var modalDel = document.getElementById("modalDel");
+    var btnDel = document.getElementById("openModalBtn");
+    var spanDel = document.getElementsByClassName("close")[0];
+
+    const getAllTitles = async (type) => {
+      try {
+        let element = "";
+        let div = "";
+
+        if (type == "modification") {
+          element = "input";
+          div = "contentModalUpdate";
+        } else {
+          element = "p";
+          div = "contentModalDel";
+        }
+        const response = await fetch("/getAllTitles");
+        const result = await response.json();
+        document.getElementById(div).innerHTML = "";
+        for (let i = 0; i < result.length; i++) {
+          const film = result[i]._source;
+          const id = result[i]._id;
+          if (
+            film.title != undefined &&
+            film.director != undefined &&
+            film.year != undefined &&
+            film.title != "" &&
+            film.director != "" &&
+            film.year != ""
+          ) {
+            const title = film.title;
+            const director = film.director;
+            const year = film.year;
+            var e = document.createElement("div");
+
+            var titleElement = document.createElement(element);
+
+            titleElement.style.fontWeight = "500";
+            titleElement.style.fontSize = "20px";
+            titleElement.style.marginBottom = "5px";
+            titleElement.id = "title_" + id;
+            if (type === "modification") {
+              titleElement.setAttribute("type", "text");
+              titleElement.value = title;
+            } else {
+              titleElement.textContent = "Nom du film : " + title;
+            }
+            e.appendChild(titleElement);
+
+            var yearElement = document.createElement(element);
+            yearElement.style.fontWeight = "500";
+            yearElement.style.fontSize = "20px";
+            yearElement.style.marginBottom = "5px";
+            yearElement.id = "year_" + id;
+            if (type === "modification") {
+              yearElement.setAttribute("type", "text");
+              yearElement.value = year;
+            } else {
+              yearElement.textContent = "Année de sortie : " + year;
+            }
+            e.appendChild(yearElement);
+
+            var directorElement = document.createElement(element);
+            var button = document.createElement("button");
+            directorElement.style.fontWeight = "500";
+            directorElement.style.fontSize = "20px";
+            directorElement.style.marginBottom = "30px";
+            directorElement.id = "director_" + id;
+            if (type == "modification") {
+              directorElement.setAttribute("type", "text");
+              directorElement.value = director;
+              button.textContent = "Modifier";
+              button.onclick = handleUpdate = async () => {
+                const t = document.getElementById("title_" + id).value;
+                const y = document.getElementById("year_" + id).value;
+                const d = document.getElementById("director_" + id).value;
+                const data = { id, title: t, year: y, director: d };
+                console.log("Envoi des données en cours...");
+
+                try {
+                  const response = await fetch("/update", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                  });
+                  const result = await response.text();
+                  console.log(result);
+                } catch (error) {
+                  console.error("Erreur lors de l'envoi des données :", error);
+                }
+              };
+            } else {
+              directorElement.textContent = "Directeur du film : " + director;
+              button.textContent = "Supprimer";
+              button.id = "button_" + id;
+              button.onclick = handleDelete = async () => {
+                const data = { id };
+                console.log("Suppression en cours...");
+                try {
+                  const response = await fetch("/delete", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                  });
+                  const result = await response.text();
+                  console.log(result);
+
+                  document.getElementById("title_" + id).remove();
+                  document.getElementById("year_" + id).remove();
+                  document.getElementById("director_" + id).remove();
+                  document.getElementById("button_" + id).remove();
+
+                } catch (error) {
+                  console.error("Erreur lors de l'envoi des données :", error);
+                }
+              };
+            }
+            e.appendChild(directorElement);
+            e.appendChild(button);
+
+            document.getElementById(div).appendChild(e);
+          }
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'envoi des données :", error);
+      }
+    };
+
+    const handleModalModOpen = () => {
+      modalMod.style.display = "block";
+      getAllTitles("modification");
+    };
+
+    const handleModalModClose = () => {
+      modalMod.style.display = "none";
+    };
+
+    const handleModalDelOpen = () => {
+      modalDel.style.display = "block";
+      getAllTitles("Suppression");
+    };
+
+    const handleModalDelClose = () => {
+      modalDel.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+      if (event.target == modalMod) {
+        modalMod.style.display = "none";
+      }
+      if (event.target == modalDel) {
+        modalDel.style.display = "none";
+      }
+    };
     const handleSearch = async () => {
       const search = document.getElementById("search").value;
       const data = { search };
