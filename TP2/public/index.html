@@ -12,7 +12,7 @@
       <div class="forms">
         <h1>MoovieSite</h1>
 
-        <h2>Ajouter un film</h2>
+         <h2>Ajouter un film</h2>
         <label for="title">Nom du film : </label>
         <input type="text" name="title" id="title" />
         <br />
@@ -34,7 +34,7 @@
         <h2>Supprimer un élément</h2>
         <button id="openModalBtnDel" onclick="handleModalDelOpen();">
           Supprimer
-        </button>
+        </button> 
       </div>
     </div>
     <div id="resultat">
@@ -178,6 +178,7 @@
                   document.getElementById("year_" + id).remove();
                   document.getElementById("director_" + id).remove();
                   document.getElementById("button_" + id).remove();
+
                 } catch (error) {
                   console.error("Erreur lors de l'envoi des données :", error);
                 }
