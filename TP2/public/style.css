@@ -107,6 +107,9 @@ input[type="number"] {
   background: #fff;
   box-shadow: 3px 3px 6px 0px #ccdbe8 inset,
     -3px -3px 6px 1px rgba(255, 255, 255, 0.5) inset;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
 }
 
 .btn-block {
@@ -123,7 +126,13 @@ button {
   font-size: 14px;
   font-weight: 600;
   color: #fff;
-  box-shadow: 2px 2px 2px 0px rgba(9, 30, 66, 0.25);
+  /* box-shadow: 2px 2px 2px 0px rgba(9, 30, 66, 0.25); */
+  box-shadow: 1px 2px 0px 1px #3b83ff;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 button:hover {
@@ -140,6 +149,7 @@ button:hover {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+  
 }
 
 .modal-content {
