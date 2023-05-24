@@ -1,5 +1,10 @@
 # Réponses du TP3
 
+## Elaborez un schéma global qui permet de comprendre au mieux les concepts suivants avec Elasticsearch
+
+- Schéma :
+<img src='./Schema.PNG'></img>
+
 ## Comment Elasticsearch stocke ses données et comment certaines de ces notions permettent de gagner en robustesse (en termes de sauvegarde et d’intégrité des données). Terminez en résumant les fonctionnalités de mise à l’échelle
 
 - Elasticsearch est naturellement distribué. Les documents stockés dans Elasticsearch sont distribués dans différents conteneurs appelés partitions, qui sont dupliqués pour intégrer des copies doublées des données en cas de défaillance matérielle. La nature distribuée d'Elasticsearch lui permet de scaler des centaines (voire même des milliers) de serveurs et gérer des pétaoctets de données.
