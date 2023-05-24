@@ -1,5 +1,9 @@
 # Réponses du TD2
 
+## Projet
+
+Voir `Mise en place du projet.md`
+
 ## Tenter d’expliquer comment les données indexées sont analysées
 
 - `Indexation des données`: Tout d'abord, les données doivent être indexées dans Elasticsearch. Cela implique de les ajouter à un index spécifique. (Index => BDD)
