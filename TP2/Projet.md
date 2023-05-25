@@ -6,7 +6,8 @@
     - <code>npm i</code>
  - 4ème étape : Dans le dossier `/TP2`, jouer la commande suivante :
     - <code>node index.js</code>
- - 5ème étape : Profiter de l'application
+ - 5ème étape : Sur l'application, appuer sur le bouton `Choisir un fichier` et sélectionner le fichier `movies.xlsx` qui se trouve dans le dossier `/TP2/public/uploads`. C'est un jeux de données pour tester l'application.
+ - 6ème étape: Profiter de l'application
 
 # Explication de l'application
 
