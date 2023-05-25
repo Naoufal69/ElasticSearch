@@ -34,10 +34,15 @@
         <h2>Import massive</h2>
         <div class="file-upload">
           <div class="file-select">
-            <div class="file-select-button" id="fileName">
+            <label for="file" class="file-select-button" id="fileName">
               Choisir un Fichier
-            </div>
-            <input type="file" class="file" onchange="handleFile();" />
+            </label>
+            <input
+              type="file"
+              id="file"
+              class="file"
+              onchange="handleFile();"
+            />
           </div>
         </div>
         <div id="Dl-Btn">
@@ -56,7 +61,6 @@
         <div id="listFilms"></div>
       </div>
     </div>
-
     <div id="modalMod" class="modal">
       <div class="modal-content">
         <span class="close" onclick="handleModalModClose();">&times;</span>
@@ -64,7 +68,6 @@
         <div id="contentModalUpdate"></div>
       </div>
     </div>
-
     <div id="modalDel" class="modal">
       <div class="modal-content">
         <span class="close" onclick="handleModalDelClose();">&times;</span>
