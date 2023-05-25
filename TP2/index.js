@@ -32,7 +32,6 @@ app.post("/delete", (req, res) => {
       res.send("Delete done");
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).send("Erreur lors de la suppression");
     });
 });
@@ -55,7 +54,6 @@ app.post("/update", (req, res) => {
       res.send("Update done");
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).send("Erreur lors de la mise à jour");
     });
 });
@@ -76,7 +74,6 @@ app.get("/getAllTitles", (req, res) => {
       res.send(hits);
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).send("Erreur lors de la recherche");
     });
 });
@@ -89,7 +86,7 @@ app.post("/submitFile", (req, res) => {
     var body = [];
     file.mv(`${__dirname}/public/uploads/${file.name}`, async (err) => {
       if (err) {
-        console.error(err);
+        res.status(500).send("Erreur lors de l'importation");
       } else {
         const workbook = XLSX.readFile(
           `${__dirname}/public/uploads/${file.name}`
@@ -109,16 +106,14 @@ app.post("/submitFile", (req, res) => {
         });
         fs.unlink(`${__dirname}/public/uploads/${file.name}`, (err) => {
           if (err) {
-            console.error(err);
-            return;
+            res.status(500).send("Erreur lors de l'importation")
           }
         });
         const bulkResponse = await client.bulk({ refresh: true, body });
         if (bulkResponse.errors) {
           res.status(500).send("Erreur lors de l'importation");
         } else {
-          console.log(bulkResponse);
-          res.send("Importation réussie");
+          res.send("Upload done");
         }
       }
     });
@@ -127,7 +122,7 @@ app.post("/submitFile", (req, res) => {
 
 app.post("/submit", (req, res) => {
   const { title, director, year } = req.body;
-  IndexValues(title, director, year).catch(console.log);
+  IndexValues(title, director, year).catch(res.status(500).send("Erreur lors de l'importation"));
   res.send("Upload done");
 });
 
@@ -152,7 +147,6 @@ app.post("/search", (req, res) => {
       res.send(hits);
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).send("Erreur lors de la recherche");
     });
 });
