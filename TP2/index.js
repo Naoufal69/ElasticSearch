@@ -106,7 +106,7 @@ app.post("/submitFile", (req, res) => {
         });
         fs.unlink(`${__dirname}/public/uploads/${file.name}`, (err) => {
           if (err) {
-            res.status(500).send("Erreur lors de l'importation")
+            res.status(500).send("Erreur lors de l'importation");
           }
         });
         const bulkResponse = await client.bulk({ refresh: true, body });
@@ -122,7 +122,9 @@ app.post("/submitFile", (req, res) => {
 
 app.post("/submit", (req, res) => {
   const { title, director, year } = req.body;
-  IndexValues(title, director, year).catch(res.status(500).send("Erreur lors de l'importation"));
+  IndexValues(title, director, year).catch(
+    res.status(500).send("Erreur lors de l'importation")
+  );
   res.send("Upload done");
 });
 

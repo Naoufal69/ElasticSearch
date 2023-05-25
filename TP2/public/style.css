@@ -131,9 +131,7 @@ input[type="number"] {
   text-align: center;
 }
 
-
-
- .file-upload .file-select .file-select-button {
+.file-upload .file-select .file-select-button {
   display: flex;
   text-align: center;
   justify-content: center;
@@ -147,7 +145,7 @@ input[type="number"] {
   color: #fff;
   box-shadow: 1px 2px 0px 1px #3b83ff;
   border-radius: 5px;
-} 
+}
 
 .file-upload .file-select input[type="file"] {
   z-index: 100;
@@ -161,7 +159,8 @@ input[type="number"] {
   filter: alpha(opacity=0);
 }
 
-button, #Dl-Btn {
+button,
+#Dl-Btn {
   width: 80%;
   height: 2.2em;
   margin-top: 4%;
@@ -180,11 +179,10 @@ button, #Dl-Btn {
   align-items: center;
 }
 
-#Dl-Btn a{
+#Dl-Btn a {
   text-decoration: none;
   color: #fff;
 }
-
 
 button:hover {
   background: #75a7ff;
