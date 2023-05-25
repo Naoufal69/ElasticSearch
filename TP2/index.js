@@ -1,6 +1,8 @@
 require("dotenv").config();
+const fileUpload = require("express-fileupload");
 const express = require("express");
 const app = express();
+const XLSX = require("xlsx");
 const fs = require("fs");
 const { Client } = require("@elastic/elasticsearch");
 const client = new Client({
@@ -17,6 +19,7 @@ const client = new Client({
 
 app.use(express.json());
 app.use(express.static("public"));
+app.use(fileUpload());
 
 app.post("/delete", (req, res) => {
   const { id } = req.body;
@@ -65,6 +68,7 @@ app.get("/getAllTitles", (req, res) => {
         query: {
           match_all: {},
         },
+        size: 10000,
       },
     })
     .then(function (resp) {
@@ -75,6 +79,50 @@ app.get("/getAllTitles", (req, res) => {
       console.log(err);
       res.status(500).send("Erreur lors de la recherche");
     });
+});
+
+app.post("/submitFile", (req, res) => {
+  if (req.files === null) {
+    return res.status(400).json({ msg: "No file uploaded" });
+  } else {
+    const file = req.files.file;
+    var body = [];
+    file.mv(`${__dirname}/public/uploads/${file.name}`, async (err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        const workbook = XLSX.readFile(
+          `${__dirname}/public/uploads/${file.name}`
+        );
+        const sheet_name_list = workbook.SheetNames;
+        const data = XLSX.utils.sheet_to_json(
+          workbook.Sheets[sheet_name_list[0]]
+        );
+        data.forEach((element) => {
+          const { Nom, Année, Réalisateur } = element;
+          body.push({ index: { _index: "titles" } });
+          body.push({
+            title: Nom,
+            director: Réalisateur,
+            year: Année,
+          });
+        });
+        fs.unlink(`${__dirname}/public/uploads/${file.name}`, (err) => {
+          if (err) {
+            console.error(err);
+            return;
+          }
+        });
+        const bulkResponse = await client.bulk({ refresh: true, body });
+        if (bulkResponse.errors) {
+          res.status(500).send("Erreur lors de l'importation");
+        } else {
+          console.log(bulkResponse);
+          res.send("Importation réussie");
+        }
+      }
+    });
+  }
 });
 
 app.post("/submit", (req, res) => {
@@ -95,6 +143,7 @@ app.post("/search", (req, res) => {
             type: "phrase_prefix",
             fields: ["title", "director", "year"],
           },
+          size: 10000,
         },
       },
     })

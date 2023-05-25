@@ -1,10 +1,27 @@
 var modalMod = document.getElementById("modalMod");
-var btnMod = document.getElementById("openModalBtnMod");
-var spanMod = document.getElementsByClassName("close")[0];
+
 
 var modalDel = document.getElementById("modalDel");
-var btnDel = document.getElementById("openModalBtn");
-var spanDel = document.getElementsByClassName("close")[0];
+
+const handleFile = async () => {
+  var input = document.querySelector('input[type="file"]');
+
+  var data = new FormData();
+  data.append("file", input.files[0]);
+
+  console.log("Envoi des données en cours...");
+  try {
+    const response = await fetch("/submitFile", {
+      method: "POST",
+      body: data,
+    });
+    const result = await response.text();
+    alert(result);
+  }
+  catch (error) {
+    alert("Erreur lors de l'envoi des données");
+  }
+}
 
 const getAllTitles = async (type) => {
   try {
