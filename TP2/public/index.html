@@ -11,39 +11,50 @@
     <div class="main-block">
       <div class="forms">
         <h1>MoovieSite</h1>
-
         <h2>Ajouter un film</h2>
         <label for="title">Nom du film : </label>
         <input type="text" name="title" id="title" />
-        <br />
         <label for="year">Année de sortie : </label>
         <input type="number" min="1800" name="year" id="year" />
-        <br />
         <label for="director">Réalisateur : </label>
         <input type="text" name="director" id="director" />
         <button onclick="handleSubmit()">Ajouter</button>
-        <br/>
-        <h2>Afficher tous les films</h2>
-        <button onclick="handleGetAll()">Afficher</button>
+        <button onclick="handleGetAll()">Afficher tous les films</button>
         <h2>Recherche</h2>
         <input type="text" id="search" />
         <button onclick="handleSearch()">Chercher</button>
-        <br />
         <h2>Modifier un élément</h2>
         <button id="openModalBtnMod" onclick="handleModalModOpen();">
           Modifier
         </button>
-        <br />
         <h2>Supprimer un élément</h2>
         <button id="openModalBtnDel" onclick="handleModalDelOpen();">
           Supprimer
         </button>
+        <h2>Import massive</h2>
+        <div class="file-upload">
+          <div class="file-select">
+            <div class="file-select-button" id="fileName">
+              Choisir un Fichier
+            </div>
+            <input type="file" class="file" onchange="handleFile();" />
+          </div>
+        </div>
+        <div id="Dl-Btn">
+          <a
+            href="/uploads/Template.xlsx"
+            download="Template.xlsx"
+            id="DlTemplate"
+            >Télécharger le fichier</a
+          >
+        </div>
       </div>
-      <input type="file" id="file" onchange="handleFile();"/>
     </div>
     <div id="resultat">
-      <h1>Résultat :</h1>
-      <div id="listFilms"></div>
+      <h1>Résultat</h1>
+      <div id="display-result">
+        <div id="listFilms"></div>
+      </div>
     </div>
 
     <div id="modalMod" class="modal">

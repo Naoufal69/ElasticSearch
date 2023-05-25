@@ -48,7 +48,7 @@ hr {
   position: relative;
   width: 15%;
   min-width: 12em;
-  height: 92%;
+  height: 94%;
 
   /* padding: 0.2%; */
   border-radius: 5px;
@@ -79,13 +79,12 @@ hr {
   /* justify-content: center;  */
   margin: auto;
   width: 60%;
-  height: 90%;
+  height: 92%;
   padding: 10px;
   border-radius: 5px;
   border: solid 2px #75a7ff;
   background: #ffffff;
   box-shadow: 10px 8px 0px rgb(191 219 254);
-  
 }
 
 #resultat h1 {
@@ -98,18 +97,19 @@ hr {
   padding: 10px;
 }
 
-#display-result{
+#display-result {
   border-radius: 5px;
   border: solid 2px #75a7ff;
-width: 90%;
-height: 80%;
-margin-top: 10%;
-display: flex;
-justify-content: center;
-/* align-items: center; */
-overflow: auto;
-box-shadow: 4px 4px 0px rgb(191 219 254);
+  width: 90%;
+  height: 80%;
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  overflow: auto;
+  box-shadow: 4px 4px 0px rgb(191 219 254);
 }
+
 input[type="text"],
 select,
 textarea,
@@ -131,10 +131,40 @@ input[type="number"] {
   text-align: center;
 }
 
-button {
+
+
+ .file-upload .file-select .file-select-button {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  height: 2em;
+  margin-top: 5%;
+  background: #75a7ff;
+  color: #fff;
+  box-shadow: 1px 2px 0px 1px #3b83ff;
+  border-radius: 5px;
+} 
+
+.file-upload .file-select input[type="file"] {
+  z-index: 100;
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+button, #Dl-Btn {
   width: 80%;
   height: 2.2em;
-  margin-top: 5% ;
+  margin-top: 4%;
   border-radius: 5px;
   border: none;
   background: #75a7ff;
@@ -150,6 +180,12 @@ button {
   align-items: center;
 }
 
+#Dl-Btn a{
+  text-decoration: none;
+  color: #fff;
+}
+
+
 button:hover {
   background: #75a7ff;
 }
@@ -164,7 +200,6 @@ button:hover {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
-  
 }
 
 .modal-content {
